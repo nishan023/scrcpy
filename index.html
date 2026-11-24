@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scrcpy Wireless Manager | Windows Downloads</title>
+  <meta name="description" content="Download Scrcpy Wireless Manager — a portable Windows CLI dashboard for managing scrcpy over Wi-Fi (wireless ADB)." />
+  <style>
+    :root {
+      --bg: #f8f8f6;
+      --surface: #ffffff;
+      --surface-subtle: #f2f2ef;
+      --border: #e4e4e0;
+      --border-strong: #cfcfc9;
+      --ink: #141413;
+      --ink-secondary: #52524e;
+      --ink-muted: #787872;
+      --accent: #0f766e;
+      --accent-hover: #115e59;
+      --accent-soft: #ecfdf5;
+      --accent-border: #a7f3d0;
+      --btn-bg: #141413;
+      --btn-ink: #ffffff;
+      --btn-hover: #2b2b28;
+      --warn-bg: #fefce8;
+      --warn-border: #fde68a;
+      --warn-ink: #854d0e;
+      --term-bg: #0c0c0c;
+      --term-bar: #1f1f1f;
+      --term-tab: #0c0c0c;
+      --term-border: #2e2e2e;
+      --radius-sm: 6px;
+      --radius: 10px;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --mono: "Cascadia Mono", "Cascadia Code", Consolas, ui-monospace, SFMono-Regular, monospace;
+    }
+
+    [data-theme="dark"] {
+      --bg: #111110;
+      --surface: #181816;
+      --surface-subtle: #20201d;
+      --border: #2a2a26;
+      --border-strong: #3d3d37;
+      --ink: #f2f2ee;
+      --ink-secondary: #a8a8a0;
+      --ink-muted: #787870;
+      --accent: #2dd4bf;
+      --accent-hover: #5eead4;
+      --accent-soft: rgba(45, 212, 191, 0.1);
+      --accent-border: rgba(45, 212, 191, 0.28);
+      --btn-bg: #f2f2ee;
+      --btn-ink: #111110;
+      --btn-hover: #dcdcd6;
+      --warn-bg: rgba(250, 204, 21, 0.08);
+      --warn-border: rgba(250, 204, 21, 0.25);
+      --warn-ink: #fde047;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Navigation */
+    header {
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 650;
+      font-size: 14.5px;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-mark {
+      width: 24px;
+      height: 24px;
+      border-radius: 5px;
+      background: var(--ink);
+      color: var(--bg);
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+    }
+
+    .nav-right a {
+      color: var(--ink-secondary);
+      transition: color 0.15s;
+    }
+
+    .nav-right a:hover { color: var(--ink); }
+
+    .theme-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--ink-secondary);
+      border-radius: var(--radius-sm);
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .theme-btn:hover {
+      border-color: var(--border-strong);
+      color: var(--ink);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 64px 0 56px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.15fr);
+      gap: 44px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--ink-secondary);
+      margin-bottom: 16px;
+    }
+
+    .eyebrow-ver {
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      padding: 1px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: clamp(1.95rem, 3.6vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      margin-bottom: 16px;
+    }
+
+    .lead {
+      color: var(--ink-secondary);
+      font-size: 1.02rem;
+      max-width: 46ch;
+      margin-bottom: 26px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 550;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .btn-primary {
+      background: var(--btn-bg);
+      color: var(--btn-ink);
+    }
+
+    .btn-primary:hover { background: var(--btn-hover); }
+
+    .btn-outline {
+      background: var(--surface);
+      color: var(--ink);
+      border-color: var(--border-strong);
+    }
+
+    .btn-outline:hover { background: var(--surface-subtle); }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      font-size: 13px;
+      color: var(--ink-muted);
+    }
+
+    .hero-meta a {
+      color: var(--ink-secondary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--border-strong);
+    }
+
+    .hero-meta a:hover { color: var(--ink); }
+
+    /* Authentic Windows Terminal Preview */
+    .win-term {
+      background: var(--term-bg);
+      border: 1px solid var(--term-border);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.14);
+    }
+
+    .win-bar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      background: var(--term-bar);
+      padding: 6px 8px 0 10px;
+      height: 36px;
+      border-bottom: 1px solid var(--term-border);
+      user-select: none;
+    }
+
+    .win-tab {
+      background: var(--term-tab);
+      color: #e5e5e5;
+      font-family: var(--sans);
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 6px 6px 0 0;
+      border: 1px solid var(--term-border);
+      border-bottom: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: -1px;
+    }
+
+    .win-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 6px 7px;
+      color: #9ca3af;
+      font-size: 11px;
+      font-family: var(--sans);
+    }
+
+    .win-term pre {
+      padding: 14px 16px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      line-height: 1.48;
+      color: #d4d4d4;
+      overflow-x: auto;
+    }
+
+    .c-cyan { color: #3b8eea; }
+    .c-teal { color: #29b8db; }
+    .c-green { color: #23d18b; }
+    .c-yellow { color: #f5f543; }
+    .c-purple { color: #d670d6; }
+    .c-dim { color: #767676; }
+
+    /* Sections */
+    section.block {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section.block:last-of-type { border-bottom: none; }
+
+    .sec-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    .sec-desc {
+      color: var(--ink-secondary);
+      font-size: 14.5px;
+      margin-top: 4px;
+    }
+
+    .text-link {
+      font-size: 13.5px;
+      color: var(--ink-secondary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--border-strong);
+    }
+
+    .text-link:hover { color: var(--ink); }
+
+    /* Notice */
+    .notice {
+      display: none;
+      padding: 11px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      color: var(--warn-ink);
+      font-size: 13.5px;
+      margin-bottom: 18px;
+    }
+
+    .notice.show { display: block; }
+    .notice code {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      padding: 1px 4px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.06);
+    }
+
+    /* Releases Surface */
+    .release-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .release-header {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .release-heading {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .release-name {
+      font-weight: 650;
+      font-size: 16px;
+    }
+
+    .release-name:hover { text-decoration: underline; }
+
+    .badge {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      color: var(--ink-secondary);
+    }
+
+    .badge-latest {
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-color: var(--accent-border);
+      font-weight: 600;
+    }
+
+    .release-date {
+      font-size: 13px;
+      color: var(--ink-muted);
+    }
+
+    .release-body {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--border);
+      color: var(--ink-secondary);
+      font-size: 14px;
+      white-space: pre-line;
+      background: var(--surface-subtle);
+    }
+
+    .asset-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .asset-table tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .asset-table tr:last-child { border-bottom: none; }
+
+    .asset-table td {
+      padding: 13px 22px;
+      vertical-align: middle;
+    }
+
+    .asset-file {
+      font-family: var(--mono);
+      font-size: 13.5px;
+      font-weight: 500;
+      word-break: break-all;
+    }
+
+    .asset-sub {
+      display: block;
+      font-family: var(--sans);
+      font-size: 12.5px;
+      color: var(--ink-muted);
+      margin-top: 2px;
+    }
+
+    .asset-meta-cell {
+      font-size: 13px;
+      color: var(--ink-muted);
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    .asset-action-cell {
+      width: 1%;
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    /* Older Releases */
+    .older-releases {
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .older-releases summary {
+      padding: 13px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 550;
+      color: var(--ink-secondary);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .older-releases summary::-webkit-details-marker { display: none; }
+    .older-releases summary:hover { color: var(--ink); }
+    .older-releases[open] summary { border-bottom: 1px solid var(--border); }
+
+    .older-item {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .older-item:last-child { border-bottom: none; }
+
+    .older-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .older-assets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Capabilities Spec Grid (Hairline Matrix — No Generic Cards) */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .spec-cell {
+      padding: 22px 22px 24px;
+      background: var(--surface);
+    }
+
+    .spec-keys {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 12px;
+    }
+
+    kbd {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-strong);
+      color: var(--ink);
+    }
+
+    .spec-cell h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .spec-cell p {
+      font-size: 13.8px;
+      color: var(--ink-secondary);
+      line-height: 1.55;
+    }
+
+    .spec-cell code {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--ink);
+    }
+
+    /* Setup List (Editorial Stepper) */
+    .setup-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .setup-step {
+      padding-top: 14px;
+      border-top: 2px solid var(--border-strong);
+    }
+
+    .step-index {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .setup-step h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .setup-step p {
+      font-size: 14px;
+      color: var(--ink-secondary);
+    }
+
+    .setup-step a {
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--border-strong);
+    }
+
+    .footnote {
+      margin-top: 22px;
+      font-size: 13px;
+      color: var(--ink-muted);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0 40px;
+      font-size: 13.5px;
+      color: var(--ink-muted);
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+      .spec-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .setup-list { grid-template-columns: 1fr; gap: 20px; }
+    }
+
+    @media (max-width: 620px) {
+      .hero { padding: 40px 0 36px; }
+      .spec-grid { grid-template-columns: 1fr; }
+      .nav-right { gap: 14px; }
+      .nav-right .hide-sm { display: none; }
+      .asset-table td { padding: 12px 14px; }
+      .asset-meta-cell { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#">
+        <span class="brand-mark">SW</span>
+        <span>Scrcpy Wireless Manager</span>
+      </a>
+      <div class="nav-right">
+        <a href="#releases">Releases</a>
+        <a href="#capabilities" class="hide-sm">Capabilities</a>
+        <a href="#setup" class="hide-sm">Setup</a>
+        <a id="nav-github" href="https://github.com/YOUR_USERNAME/YOUR_REPO" target="_blank" rel="noopener">GitHub</a>
+        <button id="theme-toggle" class="theme-btn" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg id="theme-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-ver" id="hero-version">v1.0.0</span>
+            <span>Windows 10 / 11 &middot; Portable script</span>
+          </div>
+          <h1>Manage wireless scrcpy from one clean dashboard.</h1>
+          <p class="lead">
+            A single-file Windows launcher for pairing Android 11+ devices over Wi-Fi, switching USB phones to wireless ADB,
+            launching low-lag or audio-only streams, and reconnecting from saved history.
+          </p>
+
+          <div class="actions">
+            <a id="primary-download" class="btn btn-primary" href="Scrcpy-Wireless-Manager-v1.0.0.bat" download>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span id="primary-download-label">Download v1.0.0 (.bat)</span>
+            </a>
+            <a id="all-releases-btn" class="btn btn-outline" href="https://github.com/YOUR_USERNAME/YOUR_REPO/releases" target="_blank" rel="noopener">
+              GitHub Releases
+            </a>
+          </div>
+
+          <div class="hero-meta" id="hero-meta">
+            <span>Zero install</span>
+            <span>Requires <a href="https://github.com/Genymobile/scrcpy/releases" target="_blank" rel="noopener">scrcpy</a></span>
+          </div>
+        </div>
+
+        <div class="win-term" aria-label="Windows Terminal preview">
+          <div class="win-bar">
+            <div class="win-tab">
+              <span id="terminal-title">scrcpy - v1.0.0</span>
+            </div>
+            <div class="win-controls" aria-hidden="true">
+              <span>&#8212;</span>
+              <span>&#9633;</span>
+              <span>&#10005;</span>
+            </div>
+          </div>
+<pre><span class="c-teal">┌────────────────────────────────────────────────────────────┐</span>
+<span class="c-teal">│</span>            SCRCPY WIRELESS MANAGER                 [v1.0.0]<span class="c-teal">│</span>
+<span class="c-teal">└────────────────────────────────────────────────────────────┘</span>
+ Active: <span class="c-green">Connected</span> <span class="c-teal">|</span> <span class="c-yellow">192.168.1.117:36977</span> <span class="c-teal">|</span> <span class="c-green">Streaming (1)</span>
+<span class="c-teal">──────────────────────────────────────────────────────────────</span>
+<span class="c-teal">┌─ CONNECTION ───────────────────────────────────────────────┐</span>
+<span class="c-teal">│</span> <span class="c-green">[1]</span> Pair new phone (Android 11+)                           <span class="c-teal">│</span>
+<span class="c-teal">│</span> <span class="c-green">[2]</span> Connect / reconnect wireless debugging                 <span class="c-teal">│</span>
+<span class="c-teal">│</span> <span class="c-green">[3]</span> Start wireless mirroring using USB                     <span class="c-teal">│</span>
+<span class="c-teal">│</span> <span class="c-green">[4]</span> Reconnect USB-based wireless connection                <span class="c-teal">│</span>
+<span class="c-teal">└────────────────────────────────────────────────────────────┘</span>
+<span class="c-teal">┌─</span> <span class="c-cyan">MIRRORING</span> <span class="c-teal">───────────────────┐</span> <span class="c-teal">┌─ RECENT IP HISTORY ──────┐</span>
+<span class="c-teal">│</span> <span class="c-green">[5]</span> Normal screen mirroring   <span class="c-teal">│</span> <span class="c-teal">│</span> <span class="c-green">[H1]</span> <span class="c-green">192.168.1.117:36977</span> <span class="c-teal">│</span>
+<span class="c-teal">│</span> <span class="c-green">[6]</span> Low-lag mirroring (4M)    <span class="c-teal">│</span> <span class="c-teal">│</span> <span class="c-green">[H2]</span> 192.168.1.104:5555  <span class="c-teal">│</span>
+<span class="c-teal">└───────────────────────────────┘</span> <span class="c-teal">│</span> <span class="c-dim">Quick connect: H1-H4</span>     <span class="c-teal">│</span>
+<span class="c-teal">┌─</span> <span class="c-purple">AUDIO ONLY</span> <span class="c-teal">──────────────────┐</span> <span class="c-teal">│</span> <span class="c-dim">Custom IP:PORT: S</span>        <span class="c-teal">│</span>
+<span class="c-teal">│</span> <span class="c-green">[7]</span> Normal  <span class="c-green">[8]</span> 64K  <span class="c-green">[9]</span> 32K  <span class="c-teal">│</span> <span class="c-teal">└──────────────────────────┘</span>
+<span class="c-teal">└───────────────────────────────┘</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="releases" class="block">
+      <div class="sec-head">
+        <div>
+          <h2>Downloads</h2>
+          <p class="sec-desc">Direct release files fetched from GitHub Releases.</p>
+        </div>
+        <a id="releases-page-link" class="text-link" href="https://github.com/YOUR_USERNAME/YOUR_REPO/releases" target="_blank" rel="noopener">
+          View all releases on GitHub &rarr;
+        </a>
+      </div>
+
+      <div id="release-notice" class="notice"></div>
+      <div id="releases-container">
+        <div class="release-panel">
+          <div class="release-header">
+            <div class="release-heading">
+              <span class="release-name">Scrcpy Wireless Manager v1.0.0</span>
+              <span class="badge badge-latest">Latest</span>
+            </div>
+            <span class="release-date">Checking GitHub Releases&hellip;</span>
+          </div>
+          <table class="asset-table">
+            <tbody>
+              <tr>
+                <td>
+                  <span class="asset-file">Scrcpy-Wireless-Manager-v1.0.0.bat</span>
+                  <span class="asset-sub">Portable Windows launcher (Batch + PowerShell)</span>
+                </td>
+                <td class="asset-meta-cell">Windows 10/11</td>
+                <td class="asset-action-cell">
+                  <a class="btn btn-primary btn-sm" href="Scrcpy-Wireless-Manager-v1.0.0.bat" download>Download</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="capabilities" class="block">
+      <div class="sec-head">
+        <div>
+          <h2>Capabilities</h2>
+          <p class="sec-desc">Every shortcut in the dashboard maps directly to common wireless ADB and scrcpy workflows.</p>
+        </div>
+      </div>
+
+      <div class="spec-grid">
+        <div class="spec-cell">
+          <div class="spec-keys"><kbd>1</kbd><kbd>2</kbd></div>
+          <h3>Android 11+ Wireless Pairing</h3>
+          <p>Guided pairing with a 6-digit code and pairing port, followed immediately by connecting to the main wireless debugging port.</p>
+        </div>
+
+        <div class="spec-cell">
+          <div class="spec-keys"><kbd>3</kbd><kbd>4</kbd></div>
+          <h3>USB-to-Wi-Fi Setup</h3>
+          <p>Reads your USB phone's <code>wlan0</code> IP automatically, enables <code>adb tcpip 5555</code>, verifies connectivity, and starts mirroring.</p>
+        </div>
+
+        <div class="spec-cell">
+          <div class="spec-keys"><kbd>5</kbd><kbd>6</kbd></div>
+          <h3>Normal &amp; Low-Lag Mirroring</h3>
+          <p>Launch standard mirroring or a tuned low-latency preset (<code>--video-bit-rate=4M --max-size=1024</code>) for weaker Wi-Fi.</p>
+        </div>
+
+        <div class="spec-cell">
+          <div class="spec-keys"><kbd>7</kbd><kbd>8</kbd><kbd>9</kbd></div>
+          <h3>Audio-Only Streaming</h3>
+          <p>Forward Android 11+ audio without video using Normal, 64K Opus (<code>200ms</code> buffer), or 32K Opus (<code>300ms</code> buffer) presets.</p>
+        </div>
+
+        <div class="spec-cell">
+          <div class="spec-keys"><kbd>H1</kbd><kbd>H4</kbd><kbd>H</kbd></div>
+          <h3>Persistent IP History</h3>
+          <p>Saves up to 10 successful <code>IP:PORT</code> endpoints locally across restarts and exposes top 4 slots for one-key reconnects.</p>
+        </div>
+
+        <div class="spec-cell">
+          <div class="spec-keys"><kbd>P</kbd><kbd>T</kbd><kbd>C</kbd></div>
+          <h3>Auto-Detect &amp; Stream Control</h3>
+          <p>Finds <code>scrcpy.exe</code> and <code>adb.exe</code> automatically, tracks active streams to stop them cleanly, or opens CMD in the scrcpy folder.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="setup" class="block">
+      <div class="sec-head">
+        <div>
+          <h2>Quick Start</h2>
+          <p class="sec-desc">No installer or admin privileges required.</p>
+        </div>
+      </div>
+
+      <div class="setup-list">
+        <div class="setup-step">
+          <span class="step-index">01</span>
+          <h3>Extract scrcpy</h3>
+          <p>Download the latest Windows release from <a href="https://github.com/Genymobile/scrcpy/releases" target="_blank" rel="noopener">Genymobile/scrcpy</a> and extract it anywhere on your PC.</p>
+        </div>
+
+        <div class="setup-step">
+          <span class="step-index">02</span>
+          <h3>Download the launcher</h3>
+          <p>Grab the latest <code>.bat</code> file from the <a href="#releases">Downloads</a> section above and double-click to run it.</p>
+        </div>
+
+        <div class="setup-step">
+          <span class="step-index">03</span>
+          <h3>Pair and connect</h3>
+          <p>Enable <strong>Wireless debugging</strong> on Android 11+, press <kbd>1</kbd> to pair, or connect via USB and press <kbd>3</kbd>.</p>
+        </div>
+      </div>
+
+      <p class="footnote">
+        Note: Because the file is an unsigned plain-text <code>.bat</code> script, Windows SmartScreen may prompt on first launch (choose <strong>More info &rarr; Run anyway</strong>).
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <span>Scrcpy Wireless Manager &middot; Built around <a href="https://github.com/Genymobile/scrcpy" target="_blank" rel="noopener">Genymobile/scrcpy</a></span>
+      <div class="footer-links">
+        <a id="footer-repo" href="https://github.com/YOUR_USERNAME/YOUR_REPO" target="_blank" rel="noopener">Repository</a>
+        <a id="footer-releases" href="https://github.com/YOUR_USERNAME/YOUR_REPO/releases" target="_blank" rel="noopener">Releases</a>
+        <a id="footer-issues" href="https://github.com/YOUR_USERNAME/YOUR_REPO/issues" target="_blank" rel="noopener">Issues</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /**
+     * Repository configuration.
+     * On GitHub Pages (https://<owner>.github.io/<repo>/), owner and repo are detected automatically.
+     * Set them explicitly if you use a custom domain or want live GitHub API fetching locally.
+     */
+    const CONFIG = {
+      owner: '', // e.g. 'your-username'
+      repo: '',  // e.g. 'scrcpy-wireless-manager'
+      fallbackVersion: 'v1.0.0',
+      fallbackAssetName: 'Scrcpy-Wireless-Manager-v1.0.0.bat'
+    };
+
+    /* Theme handling (defaults to light mode on first visit) */
+    (function setupTheme() {
+      const saved = localStorage.getItem('swm-theme');
+      const initial = saved === 'dark' ? 'dark' : 'light';
+      applyTheme(initial);
+
+      document.getElementById('theme-toggle').addEventListener('click', () => {
+        const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('swm-theme', next);
+        applyTheme(next);
+      });
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        const icon = document.getElementById('theme-icon');
+        if (theme === 'dark') {
+          icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+        } else {
+          icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        }
+      }
+    })();
+
+    function detectGitHubRepo() {
+      if (CONFIG.owner && CONFIG.repo) {
+        return { owner: CONFIG.owner, repo: CONFIG.repo };
+      }
+      const host = window.location.hostname;
+      if (host.endsWith('.github.io')) {
+        const owner = host.slice(0, -'.github.io'.length);
+        const segments = window.location.pathname.split('/').filter(Boolean);
+        const repo = segments[0] || `${owner}.github.io`;
+        return { owner, repo };
+      }
+      return null;
+    }
+
+    function formatBytes(bytes) {
+      if (!bytes && bytes !== 0) return '';
+      if (bytes < 1024) return `${bytes} B`;
+      if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+      return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+    }
+
+    function formatDate(iso) {
+      if (!iso) return '';
+      return new Date(iso).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function pickPrimaryAsset(release) {
+      if (!release || !Array.isArray(release.assets) || release.assets.length === 0) return null;
+      return (
+        release.assets.find(a => a.name.toLowerCase().endsWith('.bat')) ||
+        release.assets.find(a => a.name.toLowerCase().endsWith('.zip')) ||
+        release.assets[0]
+      );
+    }
+
+    function updateRepoLinks(owner, repo) {
+      const base = `https://github.com/${owner}/${repo}`;
+      document.getElementById('nav-github').href = base;
+      document.getElementById('all-releases-btn').href = `${base}/releases`;
+      document.getElementById('releases-page-link').href = `${base}/releases`;
+      document.getElementById('footer-repo').href = base;
+      document.getElementById('footer-releases').href = `${base}/releases`;
+      document.getElementById('footer-issues').href = `${base}/issues`;
+    }
+
+    function showNotice(html) {
+      const el = document.getElementById('release-notice');
+      el.innerHTML = html;
+      el.classList.add('show');
+    }
+
+    function renderFallback(repoInfo, reason) {
+      const container = document.getElementById('releases-container');
+      if (reason) showNotice(reason);
+
+      const rightText = repoInfo
+        ? `<a class="text-link" href="https://github.com/${escapeHtml(repoInfo.owner)}/${escapeHtml(repoInfo.repo)}/releases" target="_blank" rel="noopener">Open GitHub Releases &rarr;</a>`
+        : 'Local fallback';
+
+      container.innerHTML = `
+        <div class="release-panel">
+          <div class="release-header">
+            <div class="release-heading">
+              <span class="release-name">Scrcpy Wireless Manager ${escapeHtml(CONFIG.fallbackVersion)}</span>
+              <span class="badge badge-latest">Latest</span>
+            </div>
+            <span class="release-date">${rightText}</span>
+          </div>
+          <div class="release-body">Initial portable Windows release with Android 11+ wireless pairing, USB-to-Wi-Fi setup, low-lag mirroring, audio-only presets, and persistent IP history.</div>
+          <table class="asset-table">
+            <tbody>
+              <tr>
+                <td>
+                  <span class="asset-file">${escapeHtml(CONFIG.fallbackAssetName)}</span>
+                  <span class="asset-sub">Portable Windows launcher (Batch + PowerShell)</span>
+                </td>
+                <td class="asset-meta-cell">Windows 10/11</td>
+                <td class="asset-action-cell">
+                  <a class="btn btn-primary btn-sm" href="${escapeHtml(CONFIG.fallbackAssetName)}" download>Download</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function renderReleases(releases) {
+      const container = document.getElementById('releases-container');
+      const published = releases.filter(r => !r.draft);
+
+      if (published.length === 0) {
+        renderFallback(detectGitHubRepo(), 'No published GitHub Releases found yet. Publish a release on GitHub and download links will appear here automatically.');
+        return;
+      }
+
+      const latest = published.find(r => !r.prerelease) || published[0];
+      const older = published.filter(r => r.id !== latest.id);
+      const primaryAsset = pickPrimaryAsset(latest);
+
+      document.getElementById('hero-version').textContent = latest.tag_name;
+      document.getElementById('terminal-title').textContent = `scrcpy - ${latest.tag_name}`;
+
+      const primaryBtn = document.getElementById('primary-download');
+      const primaryLabel = document.getElementById('primary-download-label');
+
+      if (primaryAsset) {
+        primaryBtn.href = primaryAsset.browser_download_url;
+        primaryBtn.setAttribute('download', primaryAsset.name);
+        primaryLabel.textContent = `Download ${latest.tag_name} (${formatBytes(primaryAsset.size)})`;
+      } else {
+        primaryBtn.href = latest.html_url;
+        primaryBtn.removeAttribute('download');
+        primaryBtn.target = '_blank';
+        primaryLabel.textContent = `Get ${latest.tag_name} on GitHub`;
+      }
+
+      const totalDownloads = published.reduce((sum, rel) => {
+        return sum + (rel.assets || []).reduce((s, a) => s + (a.download_count || 0), 0);
+      }, 0);
+
+      if (totalDownloads > 0) {
+        const meta = document.getElementById('hero-meta');
+        const dl = document.createElement('span');
+        dl.textContent = `${totalDownloads.toLocaleString()} total downloads`;
+        meta.appendChild(dl);
+      }
+
+      const latestAssets = latest.assets || [];
+      const latestRows = latestAssets.length > 0
+        ? latestAssets.map(asset => `
+            <tr>
+              <td>
+                <span class="asset-file">${escapeHtml(asset.name)}</span>
+                <span class="asset-sub">${(asset.download_count || 0).toLocaleString()} downloads</span>
+              </td>
+              <td class="asset-meta-cell">${formatBytes(asset.size)}</td>
+              <td class="asset-action-cell">
+                <a class="btn btn-primary btn-sm" href="${escapeHtml(asset.browser_download_url)}" download>Download</a>
+              </td>
+            </tr>
+          `).join('')
+        : `
+            <tr>
+              <td>
+                <span class="asset-file">Source archive (${escapeHtml(latest.tag_name)})</span>
+                <span class="asset-sub">No binary assets attached</span>
+              </td>
+              <td class="asset-meta-cell">ZIP</td>
+              <td class="asset-action-cell">
+                <a class="btn btn-outline btn-sm" href="${escapeHtml(latest.zipball_url)}">Download</a>
+              </td>
+            </tr>
+          `;
+
+      const latestNotes = (latest.body || '').trim();
+
+      let html = `
+        <div class="release-panel">
+          <div class="release-header">
+            <div class="release-heading">
+              <a class="release-name" href="${escapeHtml(latest.html_url)}" target="_blank" rel="noopener">${escapeHtml(latest.name || latest.tag_name)}</a>
+              <span class="badge">${escapeHtml(latest.tag_name)}</span>
+              <span class="badge badge-latest">Latest</span>
+            </div>
+            <span class="release-date">Released ${formatDate(latest.published_at)}</span>
+          </div>
+          ${latestNotes ? `<div class="release-body">${escapeHtml(latestNotes)}</div>` : ''}
+          <table class="asset-table"><tbody>${latestRows}</tbody></table>
+        </div>
+      `;
+
+      if (older.length > 0) {
+        const olderHtml = older.map(rel => {
+          const assets = rel.assets || [];
+          const links = assets.length > 0
+            ? assets.map(a => `<a class="btn btn-outline btn-sm" href="${escapeHtml(a.browser_download_url)}" download>${escapeHtml(a.name)} (${formatBytes(a.size)})</a>`).join('')
+            : `<a class="btn btn-outline btn-sm" href="${escapeHtml(rel.zipball_url)}">Source ZIP</a>`;
+
+          return `
+            <div class="older-item">
+              <div class="older-top">
+                <div class="release-heading">
+                  <a class="release-name" href="${escapeHtml(rel.html_url)}" target="_blank" rel="noopener">${escapeHtml(rel.name || rel.tag_name)}</a>
+                  <span class="badge">${escapeHtml(rel.tag_name)}</span>
+                  ${rel.prerelease ? '<span class="badge">Pre-release</span>' : ''}
+                </div>
+                <span class="release-date">${formatDate(rel.published_at)}</span>
+              </div>
+              <div class="older-assets">${links}</div>
+            </div>
+          `;
+        }).join('');
+
+        html += `
+          <details class="older-releases">
+            <summary>
+              <span>Previous releases (${older.length})</span>
+              <span>Show / Hide</span>
+            </summary>
+            ${olderHtml}
+          </details>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    async function init() {
+      const repoInfo = detectGitHubRepo();
+      if (!repoInfo) {
+        renderFallback(
+          null,
+          'Repository auto-detects when hosted on GitHub Pages. To preview live GitHub Releases locally, set <code>CONFIG.owner</code> and <code>CONFIG.repo</code> in <code>index.html</code>.'
+        );
+        return;
+      }
+
+      updateRepoLinks(repoInfo.owner, repoInfo.repo);
+
+      try {
+        const res = await fetch(`https://api.github.com/repos/${repoInfo.owner}/${repoInfo.repo}/releases`, {
+          headers: { 'Accept': 'application/vnd.github+json' }
+        });
+        if (!res.ok) throw new Error(`GitHub API returned ${res.status}`);
+        renderReleases(await res.json());
+      } catch (err) {
+        renderFallback(repoInfo, `Unable to fetch GitHub Releases (${escapeHtml(err.message)}). Showing fallback download.`);
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
