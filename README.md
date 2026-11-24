@@ -1,153 +1,60 @@
 # Scrcpy Wireless Manager
 
-[![Latest Release](https://img.shields.io/github/v/release/YOUR_USERNAME/YOUR_REPO?style=flat-square&color=06b6d4)](https://github.com/YOUR_USERNAME/YOUR_REPO/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/YOUR_USERNAME/YOUR_REPO/total?style=flat-square&color=10b981)](https://github.com/YOUR_USERNAME/YOUR_REPO/releases)
-[![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-0ea5e9?style=flat-square)](#requirements)
+[![Latest Release](https://img.shields.io/github/v/release/nishan023/scrcpy?style=flat-square&color=0f766e)](https://github.com/nishan023/scrcpy/releases/tag/v1.0.0)
+[![Downloads](https://img.shields.io/github/downloads/nishan023/scrcpy/total?style=flat-square&color=141413)](https://github.com/nishan023/scrcpy/releases)
+[![Windows](https://img.shields.io/badge/Windows-10%20%2F%2011-0ea5e9?style=flat-square)](#requirements)
 
-A single-file, zero-install Windows command-line dashboard for managing **[scrcpy](https://github.com/Genymobile/scrcpy)** over Wi-Fi (wireless ADB). Pair Android 11+ devices, switch USB-connected phones to wireless mode, launch normal/low-lag screen mirroring or audio-only streams, and reconnect in one keypress using persistent IP history.
+A single-file Windows CLI dashboard for managing **[scrcpy](https://github.com/Genymobile/scrcpy)** over Wi-Fi (wireless ADB).
 
-> **Download Page:** [Open Web Download Page](https://YOUR_USERNAME.github.io/YOUR_REPO/) · **Releases:** [GitHub Releases](https://github.com/YOUR_USERNAME/YOUR_REPO/releases)
+**[Download Website](https://scrcpy.dhakalnishan.com.np/)** · **[Latest Release (v1.0.0)](https://github.com/nishan023/scrcpy/releases/tag/v1.0.0)** · **[All Releases](https://github.com/nishan023/scrcpy/releases)**
 
 ---
 
 ## Download
 
-1. Go to the **[Latest Release](https://github.com/YOUR_USERNAME/YOUR_REPO/releases/latest)** page (or use the [Download Page](https://YOUR_USERNAME.github.io/YOUR_REPO/)).
-2. Download **`Scrcpy-Wireless-Manager-v1.0.0.bat`** from the release assets.
-3. Double-click the `.bat` file to launch.
+1. Download **`Scrcpy-Wireless-Manager-v1.0.0.bat`** from the **[v1.0.0 release](https://github.com/nishan023/scrcpy/releases/download/v1.0.0/Scrcpy-Wireless-Manager-v1.0.0.bat)** or **[scrcpy.dhakalnishan.com.np](https://scrcpy.dhakalnishan.com.np/)**.
+2. Double-click the `.bat` file to run (no install needed).
 
 > [!NOTE]
-> Because this is an unsigned `.bat` script, Windows SmartScreen may show a warning on first run. Click **More info → Run anyway**, or inspect the plain-text source code directly before running.
-
----
-
-## Features
-
-- **Single-File Portable Script** — Hybrid `.bat` + PowerShell tool with no installation or external dependencies.
-- **Auto-Detects `scrcpy`** — Automatically finds `scrcpy.exe` and `adb.exe` in the script folder, system `PATH`, `Downloads`, `Desktop`, or `Program Files`, with a built-in folder browser (`P`) if you want to pick a custom location.
-- **Android 11+ Wireless Pairing** — Guided pairing using a 6-digit pairing code and pairing port, followed immediately by connection and mirroring.
-- **USB-to-Wi-Fi Mode (Legacy TCP/IP)** — Detects a connected USB phone, auto-reads its `wlan0` Wi-Fi IP, enables `adb tcpip 5555`, verifies wireless connectivity, and starts mirroring so you can unplug the cable.
-- **Multiple Mirroring & Audio Presets** — Normal mirroring, low-lag mirroring (`4M` / `1024px`), and audio-only streaming (Normal, `64K` Opus for weak Wi-Fi, `32K` Opus for very weak Wi-Fi).
-- **Persistent Recent IP History** — Remembers up to 10 successful `IP:PORT` connections across restarts and exposes the top 4 (`H1`–`H4`) right on the dashboard for instant reconnection. Pairing ports are never saved.
-- **Live Status & Stream Management** — Displays real-time ADB state (`Connected`, `Disconnected`, `Offline`, `Unauthorized`), tracks active manager-launched `scrcpy` windows, and lets you stop them individually or all at once.
-
----
-
-## Dashboard Preview
-
-```text
-┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│                                 SCRCPY WIRELESS MANAGER                                  [v1.0.0]│
-│                 A command-line tool to manage scrcpy over Wi-Fi (wireless ADB)                   │
-└──────────────────────────────────────────────────────────────────────────────────────────────────┘
- Active device: Connected  |  192.168.1.117:36977  |  Status: Streaming (1)
-────────────────────────────────────────────────────────────────────────────────────────────────────
-┌─ CONNECTION ──────────────────────────────────────────┐  ┌─ RECENT IP HISTORY ───────────────────┐
-│ [1] Pair new phone (Android 11+)                      │  │ Previously used IP:PORT (quick connect│
-│ [2] Connect / reconnect wireless debugging            │  │ ───────────────────────────────────── │
-│ [3] Start wireless mirroring using USB                │  │ [H1] 192.168.1.117:36977   just now   │
-│ [4] Reconnect USB-based wireless connection           │  │ [H2] 192.168.1.104:5555    2 hr ago   │
-└───────────────────────────────────────────────────────┘  │ ───────────────────────────────────── │
-┌─ SCREEN MIRRORING ────────────────────────────────────┐  │ Quick connect: H1-H4                  │
-│ [5] Normal screen mirroring                           │  │ Custom IP:PORT: S                     │
-│ [6] Low-lag screen mirroring                          │  │ Saved history: H                      │
-└───────────────────────────────────────────────────────┘  │ History survives app restarts.        │
-┌─ AUDIO STREAMING ─────────────────────────────────────┐  │ Pairing ports are never saved.        │
-│ [7] Audio only - normal                               │  └───────────────────────────────────────┘
-│ [8] Audio only - weak Wi-Fi (64K)                     │
-│ [9] Audio only - very weak Wi-Fi (32K)                │
-└───────────────────────────────────────────────────────┘
-```
+> If Windows SmartScreen warns about an unsigned `.bat` script, click **More info → Run anyway**.
 
 ---
 
 ## Requirements
 
-- **OS:** Windows 10 or Windows 11 (uses built-in Windows PowerShell)
-- **scrcpy:** Extracted Windows release of [Genymobile/scrcpy](https://github.com/Genymobile/scrcpy/releases) containing both `scrcpy.exe` and `adb.exe`
-- **Android Device:**
-  - Android 11+ for built-in **Wireless debugging** (and for audio forwarding)
-  - Any Android version with **USB debugging** for USB-to-Wi-Fi mode (port `5555`)
-  - Both PC and phone connected to the same Wi-Fi network
+- **Windows 10 / 11** (uses built-in PowerShell)
+- **[scrcpy for Windows](https://github.com/Genymobile/scrcpy/releases)** extracted anywhere (auto-detected on launch)
+- **Android phone** on the same Wi-Fi network (Android 11+ for Wireless debugging & audio)
 
 ---
 
-## Quick Start
+## Features
 
-### Option A: Android 11+ Wireless Debugging (No USB Needed)
-
-1. On your phone, enable **Developer options** and turn on **Wireless debugging**.
-2. Launch `Scrcpy-Wireless-Manager-v1.0.0.bat` and press **`1`** (*Pair new phone*).
-3. On your phone, tap **Pair device with pairing code**.
-4. Enter the **Pairing IP:PORT** and the **6-digit pairing code** shown on your phone.
-5. Once paired, return to the main **Wireless debugging** screen, enter the **Connection IP:PORT** (note: this port is different from the pairing port), and mirroring starts automatically.
-
-### Option B: USB-to-Wi-Fi (Port 5555)
-
-1. Connect your phone via USB, unlock it, and enable **USB debugging** (accept the RSA prompt on your phone).
-2. Press **`3`** (*Start wireless mirroring using USB*).
-3. Confirm the auto-detected Wi-Fi IP address and enable TCP/IP mode on port `5555`.
-4. Once connected, unplug the USB cable and enjoy wireless mirroring.
-
-> [!WARNING]
-> Legacy TCP/IP debugging on port `5555` accepts ADB connections over your local network. Only use it on a trusted private Wi-Fi network.
+- **Android 11+ Wireless Pairing** — Pair with a 6-digit code and connect directly.
+- **USB-to-Wi-Fi Setup** — Auto-detects phone IP, enables `adb tcpip 5555`, and switches to wireless.
+- **Mirroring & Audio Presets** — Normal, low-lag (`4M` / `1024px`), and audio-only (Normal, `64K`, `32K` Opus).
+- **Quick-Connect History** — Saves up to 10 recent `IP:PORT` connections (`H1`–`H4` for 1-key reconnect).
+- **Live Controls** — Shows live ADB status, manages active streams, and opens CMD in your `scrcpy` folder.
 
 ---
 
-## Menu Reference
+## Shortcuts
 
-| Key | Category | Action | Scrcpy / ADB Flags |
-| --- | --- | --- | --- |
-| `1` | Connection | Pair new phone (Android 11+) | `adb pair <IP:PORT>` |
-| `2` | Connection | Connect / reconnect wireless debugging | `adb connect <IP:PORT>` + `scrcpy` |
-| `3` | Connection | Start wireless mirroring using USB | `adb -d tcpip 5555` + `scrcpy` |
-| `4` | Connection | Reconnect USB-based wireless connection | Defaults port to `5555` |
-| `5` | Screen Mirroring | Normal screen mirroring | `scrcpy -s <IP:PORT>` |
-| `6` | Screen Mirroring | Low-lag screen mirroring | `--video-bit-rate=4M --max-size=1024` |
-| `7` | Audio Streaming | Audio only — normal | `--no-video --no-control` |
-| `8` | Audio Streaming | Audio only — weak Wi-Fi (64K) | `--no-video --no-control --audio-codec=opus --audio-bit-rate=64K --audio-buffer=200` |
-| `9` | Audio Streaming | Audio only — very weak Wi-Fi (32K) | `--no-video --no-control --audio-codec=opus --audio-bit-rate=32K --audio-buffer=300` |
-| `H1`–`H4` | Quick Connect | Connect to a saved recent `IP:PORT` | Uses history slot 1–4 |
-| `D` | Device Management | List ADB devices | `adb devices -l` |
-| `S` | Device Management | Select / change active device `IP:PORT` | Sets active device and connects |
-| `X` | Device Management | Disconnect a specific device | `adb disconnect <IP:PORT>` |
-| `A` | Device Management | Disconnect all wireless devices | `adb disconnect` |
-| `C` | Device Management | Open Command Prompt in `scrcpy` folder | Launches `cmd /k` |
-| `T` | Device Management | Stop manager-launched streams | Terminates selected or `ALL` streams |
-| `R` | Device Management | Refresh live status | Re-queries ADB state |
-| `H` | Device Management | Manage saved IP history | Remove entry or `CLEAR` all |
-| `P` | Device Management | Change `scrcpy` installation path | Folder picker or manual path |
-| `Q` | Device Management | Exit manager | Leaves active `scrcpy` windows open |
+| Key | Action |
+| --- | --- |
+| `1` / `2` | Pair new phone (Android 11+) / Connect wireless debugging |
+| `3` / `4` | Start wireless via USB (`5555`) / Reconnect USB-based wireless |
+| `5` / `6` | Normal mirroring / Low-lag mirroring (`4M`, `1024px`) |
+| `7` / `8` / `9` | Audio only — Normal / `64K` / `32K` (weak Wi-Fi) |
+| `H1`–`H4` | Quick-connect from recent IP history |
+| `D` `S` `X` `A` | List devices / Select IP / Disconnect one / Disconnect all |
+| `T` `C` `H` `P` | Stop streams / Open CMD / Manage history / Change `scrcpy` path |
+| `R` / `Q` | Refresh status / Exit |
 
 ---
 
-## Configuration & Storage
+## Notes
 
-Settings and connection history are stored locally per user:
-
-- **Config:** `%LOCALAPPDATA%\ScrcpyWirelessManager\config.json` (saved `scrcpy` folder path)
-- **History:** `%LOCALAPPDATA%\ScrcpyWirelessManager\history.json` (up to 10 recent `IP:PORT` endpoints)
-
-### ASCII Borders Mode
-
-If your terminal font does not render Unicode box-drawing characters (`┌ ─ ┐`), set the `SCRCPY_ASCII` environment variable to `1` before launching:
-
-```cmd
-set SCRCPY_ASCII=1
-Scrcpy-Wireless-Manager-v1.0.0.bat
-```
-
----
-
-## Troubleshooting
-
-- **Connection fails after re-enabling Wireless debugging:** Android 11+ randomizes the connection port whenever Wireless debugging is toggled off and on. Check the main **Wireless debugging** screen on your phone for the new port and use option `2` or `S`.
-- **Device shows `Unauthorized`:** Unlock your phone and accept the **Allow USB/Wireless debugging** prompt.
-- **No audio in options `7`–`9`:** Audio forwarding requires Android 11 or newer and `scrcpy` v2.0+.
-- **`scrcpy` not found:** Download the latest Windows archive from [Genymobile/scrcpy](https://github.com/Genymobile/scrcpy/releases), extract it, and select that folder using option `P`.
-
----
-
-## Credits
-
-Built as a lightweight Windows launcher around **[scrcpy](https://github.com/Genymobile/scrcpy)** by Genymobile.
+- Settings and history are saved in `%LOCALAPPDATA%\ScrcpyWirelessManager\`.
+- Run with `set SCRCPY_ASCII=1` if your terminal font does not render box-drawing characters.
+- Built around **[Genymobile/scrcpy](https://github.com/Genymobile/scrcpy)**.
