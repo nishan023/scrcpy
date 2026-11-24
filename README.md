@@ -1,12 +1,12 @@
 # Scrcpy Wireless Manager
 
-[![Latest Release](https://img.shields.io/github/v/release/nishan023/scrcpy?style=flat-square&color=0f766e)](https://github.com/nishan023/scrcpy/releases/tag/v1.0.0)
-[![Downloads](https://img.shields.io/github/downloads/nishan023/scrcpy/total?style=flat-square&color=141413)](https://github.com/nishan023/scrcpy/releases)
-[![Windows](https://img.shields.io/badge/Windows-10%20%2F%2011-0ea5e9?style=flat-square)](#requirements)
+[![Release v1.0.0](assets/badge-release.svg)](https://github.com/nishan023/scrcpy/releases/tag/v1.0.0)
+[![Platform Windows 10/11](assets/badge-windows.svg)](#requirements)
+[![Portable .bat](assets/badge-portable.svg)](https://github.com/nishan023/scrcpy/releases/download/v1.0.0/Scrcpy-Wireless-Manager-v1.0.0.bat)
 
-A single-file Windows CLI dashboard for managing **[scrcpy](https://github.com/Genymobile/scrcpy)** over Wi-Fi (wireless ADB).
+A single-file Windows 10/11 CLI dashboard for managing **[scrcpy](https://github.com/Genymobile/scrcpy)** over Wi-Fi (wireless ADB).
 
-**[Download Website](https://scrcpy.dhakalnishan.com.np/)** · **[Latest Release (v1.0.0)](https://github.com/nishan023/scrcpy/releases/tag/v1.0.0)** · **[All Releases](https://github.com/nishan023/scrcpy/releases)**
+**[Download Website](https://scrcpy.dhakalnishan.com.np/)** · **[Latest Release (`v1.0.0`)](https://github.com/nishan023/scrcpy/releases/tag/v1.0.0)** · **[All Releases](https://github.com/nishan023/scrcpy/releases)**
 
 ---
 

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="142" height="22" role="img" aria-label="platform: Windows 10/11">
+  <rect width="64" height="22" rx="3" fill="#24292f"/>
+  <rect x="61" width="81" height="22" rx="3" fill="#0284c7"/>
+  <rect x="61" width="4" height="22" fill="#0284c7"/>
+  <g fill="#ffffff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11">
+    <text x="31" y="15">platform</text>
+    <text x="102" y="15" font-weight="bold">Win 10 / 11</text>
+  </g>
+</svg>
