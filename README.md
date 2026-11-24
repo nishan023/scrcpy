@@ -10,7 +10,16 @@ A single-file Windows 10/11 CLI dashboard for managing **[scrcpy](https://github
 
 ---
 
-## Download
+## Quick Run (PowerShell)
+
+Open **PowerShell as Administrator** and run:
+
+```powershell
+# SCRCPY Wireless Manager
+irm https://get.dhakalnishan.com.np/scrcpy | iex
+```
+
+### Or Download Manually
 
 1. Download **`Scrcpy-Wireless-Manager-v1.0.0.bat`** from the **[v1.0.0 release](https://github.com/nishan023/scrcpy/releases/download/v1.0.0/Scrcpy-Wireless-Manager-v1.0.0.bat)** or **[scrcpy.dhakalnishan.com.np](https://scrcpy.dhakalnishan.com.np/)**.
 2. Double-click the `.bat` file to run (no install needed).

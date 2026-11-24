@@ -259,6 +259,87 @@
 
     .hero-meta a:hover { color: var(--ink); }
 
+    /* Quick Run Command Box */
+    .cmd-box {
+      margin: 18px 0 16px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .cmd-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: var(--ink-secondary);
+    }
+
+    .cmd-label strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .cmd-path {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink-muted);
+      white-space: nowrap;
+    }
+
+    .cmd-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 8px 8px 13px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    .cmd-code {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.4;
+      word-break: break-word;
+      user-select: all;
+    }
+
+    .copy-btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 11px;
+      border-radius: 5px;
+      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--ink-secondary);
+      font-family: var(--sans);
+      font-size: 12.5px;
+      font-weight: 550;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .copy-btn:hover {
+      background: var(--surface-subtle);
+      color: var(--ink);
+      border-color: var(--ink-muted);
+    }
+
+    .copy-btn.copied {
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-color: var(--accent-border);
+    }
+
     /* Authentic Windows Terminal Preview */
     .win-term {
       background: var(--term-bg);
@@ -725,6 +806,23 @@
             </a>
           </div>
 
+          <div class="cmd-box" aria-label="PowerShell quick run command">
+            <div class="cmd-label">
+              <span>Run directly on <strong>PowerShell</strong> with <strong>Administrator access</strong></span>
+              <span class="cmd-path">/scrcpy</span>
+            </div>
+            <div class="cmd-row">
+              <code class="cmd-code" id="ps-command">irm https://get.dhakalnishan.com.np/scrcpy | iex</code>
+              <button id="copy-cmd-btn" class="copy-btn" type="button" aria-label="Copy PowerShell command" title="Copy command">
+                <svg id="copy-cmd-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span id="copy-cmd-text">Copy</span>
+              </button>
+            </div>
+          </div>
+
           <div class="hero-meta" id="hero-meta">
             <span>Zero install</span>
             <span>Requires <a href="https://github.com/Genymobile/scrcpy/releases" target="_blank" rel="noopener">scrcpy</a></span>
@@ -854,7 +952,7 @@
       <div class="sec-head">
         <div>
           <h2>Quick Start</h2>
-          <p class="sec-desc">No installer or admin privileges required.</p>
+          <p class="sec-desc">Run directly via PowerShell or launch the portable script.</p>
         </div>
       </div>
 
@@ -867,8 +965,8 @@
 
         <div class="setup-step">
           <span class="step-index">02</span>
-          <h3>Download the launcher</h3>
-          <p>Grab the latest <code>.bat</code> file from the <a href="#releases">Downloads</a> section above and double-click to run it.</p>
+          <h3>Run via PowerShell or .bat</h3>
+          <p>Run <code>irm https://get.dhakalnishan.com.np/scrcpy | iex</code> in PowerShell (as Administrator), or download the <code>.bat</code> from <a href="#releases">Downloads</a>.</p>
         </div>
 
         <div class="setup-step">
@@ -905,6 +1003,45 @@
       fallbackVersion: 'v1.0.0',
       fallbackAssetName: 'Scrcpy-Wireless-Manager-v1.0.0.bat'
     };
+
+    /* Copy PowerShell command */
+    (function setupCopyCommand() {
+      const COMMAND = 'irm https://get.dhakalnishan.com.np/scrcpy | iex';
+      const btn = document.getElementById('copy-cmd-btn');
+      const icon = document.getElementById('copy-cmd-icon');
+      const label = document.getElementById('copy-cmd-text');
+      const copySvg = '<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>';
+      const checkSvg = '<polyline points="20 6 9 17 4 12"></polyline>';
+      let timer = null;
+
+      btn.addEventListener('click', async () => {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(COMMAND);
+          } else {
+            const ta = document.createElement('textarea');
+            ta.value = COMMAND;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            ta.remove();
+          }
+          btn.classList.add('copied');
+          icon.innerHTML = checkSvg;
+          label.textContent = 'Copied';
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            btn.classList.remove('copied');
+            icon.innerHTML = copySvg;
+            label.textContent = 'Copy';
+          }, 1800);
+        } catch {
+          label.textContent = 'Select & copy';
+        }
+      });
+    })();
 
     /* Theme handling (defaults to light mode on first visit) */
     (function setupTheme() {
